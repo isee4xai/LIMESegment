@@ -26,4 +26,3 @@ TEST_FILES = ['../Data/Coffee_TEST', #0
                 '../Data/HouseTwenty_TEST', #10
                 '../Data/WormsTwoClass_TEST', #11
             ]
-

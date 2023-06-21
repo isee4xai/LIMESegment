@@ -13,7 +13,8 @@ from sklearn.preprocessing import LabelEncoder
 from keras.layers import Permute
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.utils import to_categorical
-from keras.preprocessing.sequence import pad_sequences
+from keras.utils import pad_sequences
+# from keras.preprocessing.sequence import pad_sequences
 from keras.callbacks import ModelCheckpoint, ReduceLROnPlateau, LearningRateScheduler
 from keras.wrappers.scikit_learn import KerasClassifier
 

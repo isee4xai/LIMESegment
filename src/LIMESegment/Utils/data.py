@@ -3,13 +3,8 @@ import os
 import pandas as pd
 from sklearn.utils import shuffle
 
-
-import sys
-sys.path.append('../')
-from Utils.constants import TRAIN_FILES, TEST_FILES
-from Utils.perturbations import RBPIndividual, zeroPerturb, noisePerturb, blurPerturb
-
-
+from .constants import TRAIN_FILES, TEST_FILES
+from .perturbations import RBPIndividual, zeroPerturb, noisePerturb, blurPerturb
 
 def perturb(perturbation_strategy, ts, index0, index1):
     if perturbation_strategy == 'RBP':
@@ -236,7 +231,7 @@ def generateSynthetic(test_type, train_size, test_size):
     x_train, y_train = shuffle(x_train, y_train, random_state=0)
     return x_train, y_train, x_test, y_test
 
-def loadUCRDataID(index, normalize_timeseries=False, verbose=True):
+def loadUCRDataID(train_file, test_file, normalize_timeseries=False, verbose=True):
 
     """
     Loads a Univaraite UCR Dataset indexed by `utils.constants`.
@@ -257,17 +252,14 @@ def loadUCRDataID(index, normalize_timeseries=False, verbose=True):
         A tuple of shape (X_train, y_train, X_test, y_test, is_timeseries).
         For legacy reasons, is_timeseries is always True.
     """
-    assert index < len(TRAIN_FILES), "Index invalid. Could not load dataset at %d" % index
-    if verbose: print("Loading train / test dataset : ", TRAIN_FILES[index], TEST_FILES[index])
 
-    if os.path.exists(TRAIN_FILES[index]):
-        df = pd.read_csv(TRAIN_FILES[index], header=None, encoding='latin-1')
+    if verbose: print("Loading train / test dataset : ", train_file, test_file)
 
-    elif os.path.exists(TRAIN_FILES[index][1:]):
-        df = pd.read_csv(TRAIN_FILES[index][1:], header=None, encoding='latin-1')
+    if os.path.exists(train_file):
+        df = pd.read_csv(train_file, header=None, encoding='latin-1')
 
     else:
-        raise FileNotFoundError('File %s not found!' % (TRAIN_FILES[index]))
+        raise FileNotFoundError('File %s not found!' % train_file)
 
     is_timeseries = True # assume all input data is univariate time series
 
@@ -293,13 +285,10 @@ def loadUCRDataID(index, normalize_timeseries=False, verbose=True):
     if is_timeseries:
         X_train = X_train[:, :, np.newaxis]
 
-    if os.path.exists(TEST_FILES[index]):
-        df = pd.read_csv(TEST_FILES[index], header=None, encoding='latin-1')
-
-    elif os.path.exists(TEST_FILES[index][1:]):
-        df = pd.read_csv(TEST_FILES[index][1:], header=None, encoding='latin-1')
+    if os.path.exists(test_file):
+        df = pd.read_csv(test_file, header=None, encoding='latin-1')
     else:
-        raise FileNotFoundError('File %s not found!' % (TEST_FILES[index]))
+        raise FileNotFoundError('File %s not found!' % (test_file))
 
     # remove all columns which are completely empty
     df.dropna(axis=1, how='all', inplace=True)
