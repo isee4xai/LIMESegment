@@ -6,4 +6,3 @@ fastdtw
 tensorflow
 pyts
 matplotlib
-

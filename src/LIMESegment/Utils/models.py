@@ -1,4 +1,7 @@
-import tensorflow.keras as keras
+
+import tensorflow as tf
+from tensorflow import keras
+
 from pyts.classification import KNeighborsClassifier
 import numpy as np
 
@@ -11,8 +14,9 @@ from keras.layers import Input, Dense, LSTM, concatenate, Activation, GRU, Simpl
 from keras.models import Model
 from sklearn.preprocessing import LabelEncoder
 from keras.layers import Permute
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.utils import to_categorical
+import tensorflow as tf
+from keras.optimizers import Adam
+from keras.utils import to_categorical
 from keras.utils import pad_sequences
 # from keras.preprocessing.sequence import pad_sequences
 from keras.callbacks import ModelCheckpoint, ReduceLROnPlateau, LearningRateScheduler
@@ -66,7 +70,7 @@ def make_LSTMFCN_model(MAX_SEQUENCE_LENGTH, NB_CLASS=2, NUM_CELLS=8):
 
     model = Model(ip, out)
 
-    model.summary()
+    # model.summary()
 
     # add load model code here to fine-tune
 
@@ -99,11 +103,11 @@ def train_LSTMFCN_model(model, x_train, y_train, x_test, y_test, epochs=100, bat
 	model.compile(optimizer=optm, loss='categorical_crossentropy', metrics=['accuracy'])
 
 	if val_subset is not None:
-	    x_test = x_test[:val_subset]
-	    y_test = y_test[:val_subset]
+		x_test = x_test[:val_subset]
+		y_test = y_test[:val_subset]
 
 	classy_weight = {i : class_weight[i] for i in range(len(class_weight))}
-	model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, callbacks=callback_list,
+	history = model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, callbacks=callback_list,
 	          class_weight=classy_weight, verbose=2, validation_data=(x_test, y_test))
 
 	return model
@@ -133,4 +137,4 @@ def train_CNN_model(model, x_train, y_train, epochs=100, batch_size=64, num_clas
 	    validation_split=0.2,
 	    verbose=1,
 	)
-	return model, history
+	return model

@@ -3,7 +3,6 @@ import os
 import pandas as pd
 from sklearn.utils import shuffle
 
-from .constants import TRAIN_FILES, TEST_FILES
 from .perturbations import RBPIndividual, zeroPerturb, noisePerturb, blurPerturb
 
 def perturb(perturbation_strategy, ts, index0, index1):
