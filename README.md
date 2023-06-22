@@ -11,7 +11,7 @@ Install this package with the following `pip` command
 `pip install git+https://github.com/isee4xai/LIMESegment`
 
 
-## How to use ths package
+## How to use this package
 
 ```python
 from LIMESegment.LIMESegmentExplainer import LIMESegmentExplainer
