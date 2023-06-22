@@ -31,7 +31,7 @@ explanation = explainer.explain (
 Input arguments:
 
 <ul> 
-  <li> ts: TS array of shape T x 1 where T is length of time series </li>
+  <li> instance: TS array of shape T x 1 where T is length of time series </li>
   <li> model: Trained model on dataset array of shape n x T x 1 </li>
   <li> model_type: String indicating if classificaton model produces binary output "class" or probability output "proba", default     "class" </li>
   <li> distance: Distance metric to be used by LIMESegment default is 'dtw' </li>
