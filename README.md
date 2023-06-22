@@ -46,7 +46,7 @@ The returned variable `explanation` is a tuple containing:
 * The segment importance vector as returned by LIMESegment
 * the change points indices
 
-## How to plot a chart
+## How to plot an explaation chart
 
 ```python
 import matplotlib.pyplot as plt
